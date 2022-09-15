@@ -7,8 +7,9 @@
                 names_to = "Fecha",
                 values_to = "Infectados") %>% 
    mutate(Fecha = lubridate::ymd(Fecha), prevalencia = 100000*(Infectados/Poblacion)) %>% 
-   dplyr::filter(Fecha == min(Fecha), !is.na(`Codigo comuna`), Region == "Metropolitana") %>% 
+   dplyr::filter(Fecha == MAX(Fecha), !is.na(`Codigo comuna`), Region == "Metropolitana") %>% 
    arrange(desc(prevalencia)) %>% group_by(Region,Comuna) %>% 
+   arrange(desc(prevalencia))
   
    Contagiados3 <- Contagiados %>% 
    pivot_longer(cols = starts_with(c("2020","2021","2022"))  ,
